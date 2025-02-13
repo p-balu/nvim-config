@@ -1,6 +1,7 @@
 -- Formatter and Linters
 return {
   "nvimtools/none-ls.nvim",
+  "mantoni/eslint_d.js",
   config = function()
     local null_ls = require("null-ls")
     null_ls.setup({
@@ -15,6 +16,16 @@ return {
 
       },
     })
+     require('lint').linters_by_ft = {
+              javascript = {'eslint_d'},
+              typescript = {'eslint_d'},
+          }
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.json" },
+      callback = function()
+        vim.lsp.buf.format()
+      end,
+    })
+  end
 
-  end,
 }

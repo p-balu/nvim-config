@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 vim.api.nvim_create_autocmd("InsertLeave", {
   pattern = "*",
   callback = function()
-    vim.opt.relativenumber = true -- Re-enable relative numbers in Normal mode
+    vim.opt.relativenumber = false -- Re-enable relative numbers in Normal mode
   end,
 })
 

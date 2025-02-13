@@ -11,6 +11,14 @@ return {
     },
   },
   {
+     "windwp/nvim-autopairs",
+    event = "InsertEnter",
+      config = function()
+          require("nvim-autopairs").setup({})
+    end,
+  },
+
+  {
     "hrsh7th/nvim-cmp",
     config = function()
       local cmp = require("cmp")
@@ -35,7 +43,7 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
+          { name = "luasnip" },
         }, {
           { name = "buffer" },
         }),

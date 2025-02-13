@@ -1,12 +1,10 @@
 --color scheme
 return {
   {
-    "catppuccin/nvim",
-    lazy = false,
-    name = "catppuccin",
-    priority = 1000,
+    "EdenEast/nightfox.nvim",
+    name = "nightfox",
     config = function()
-      vim.cmd.colorscheme "catppuccin-mocha"
+ vim.cmd("colorscheme nightfox")
     end
   }
 }
