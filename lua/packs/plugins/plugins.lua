@@ -1,8 +1,0 @@
-require("telescope")
-require("packs.plugins.lsp")
-require("packs.plugins.linters")
-require("packs.plugins.colorscheme")
-require("packs.plugins.formatters")
-require("packs.plugins.debugger")
-require("packs.plugins.lualine")
-require("packs.plugins.snippets")

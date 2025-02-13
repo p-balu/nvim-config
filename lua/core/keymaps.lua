@@ -7,6 +7,9 @@ vim.keymap.set("n", "<leader>q", ":Neotree close<CR>", { noremap = true, silent 
 vim.keymap.set("n", "<leader>n", ":Neotree reveal<CR>", { noremap = true, silent = true, desc = "Reveal File in Neo-Tree" })
 vim.keymap.set("n", "<leader>r", ":Neotree refresh<CR>", { noremap = true, silent = true, desc = "Refresh Neo-Tree" })
 
+
+vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+
 -- Buffer ----------------
 -- vim.keymap.set("n", "<leader>bp", ":bp<CR>", { noremap = true, silent = true }) -- Switch to previous buffer
 -- vim.keymap.set("n", "<leader>bn", ":bn<CR>", { noremap = true, silent = true }) -- Switch to next buffer
@@ -29,8 +32,8 @@ vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current bu
 --  LSP Keybindings
 vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, { noremap = true, silent = true })
-
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {noremap=true, silent=true})
 -- Diagnostics Navigation
 vim.keymap.set("n", "<leader>ne", function() vim.diagnostic.goto_next({ severity = "Error" }) end, { noremap = true, silent = true, desc = "Next Error" })
 vim.keymap.set("n", "<leader>ni", function() vim.diagnostic.goto_next({ severity = "Info" }) end, { noremap = true, silent = true, desc = "Next Info" })
@@ -40,8 +43,40 @@ vim.keymap.set("n", "<leader>pe", function() vim.diagnostic.goto_prev({ severity
 vim.keymap.set("n", "<leader>pi", function() vim.diagnostic.goto_prev({ severity = "Info" }) end, { noremap = true, silent = true, desc = "Previous Info" })
 vim.keymap.set("n", "<leader>pw", function() vim.diagnostic.goto_prev({ severity = "Warn" }) end, { noremap = true, silent = true, desc = "Previous Warning" })
 
+-- Formatter
+vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {noremap=true,silent=true})
+
 -- Git Integration Keybinding
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git, {})
+
+vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
+vim.keymap.set("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", {})
+
+
+--Debugger
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end)
+
+-- Select All
+vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true, desc = "Select All" })
+
+-- Cut Selection (X Clipboard)
+vim.keymap.set("v", "<C-x>", '"+d', { noremap = true, silent = true, desc = "Cut to Clipboard" })
+
+-- Copy Selection (X Clipboard)
+vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true, desc = "Copy to Clipboard" })
+
+-- Paste from Clipboard
+vim.keymap.set("n", "<C-v>", '"+p', { noremap = true, silent = true, desc = "Paste from Clipboard" })
+vim.keymap.set("i", "<C-v>", '<C-r>+', { noremap = true, silent = true, desc = "Paste from Clipboard in Insert Mode" })
 
 --Comments
 
