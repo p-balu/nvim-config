@@ -2,12 +2,16 @@
 -- General Keymaps -------------------
 
 --File Pane
-vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle Neo-Tree" })
-vim.keymap.set("n", "<leader>q", ":Neotree close<CR>", { noremap = true, silent = true, desc = "Close Neo-Tree" })
-vim.keymap.set("n", "<leader>n", ":Neotree reveal<CR>",
-  { noremap = true, silent = true, desc = "Reveal File in Neo-Tree" })
-vim.keymap.set("n", "<leader>r", ":Neotree refresh<CR>", { noremap = true, silent = true, desc = "Refresh Neo-Tree" })
+-- vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle Neo-Tree" })
+-- vim.keymap.set("n", "<leader>q", ":Neotree close<CR>", { noremap = true, silent = true, desc = "Close Neo-Tree" })
+-- vim.keymap.set("n", "<leader>n", ":Neotree reveal<CR>",
+  -- { noremap = true, silent = true, desc = "Reveal File in Neo-Tree" })
+-- vim.keymap.set("n", "<leader>r", ":Neotree refresh<CR>", { noremap = true, silent = true, desc = "Refresh Neo-Tree" })
 
+--File Explorer oil.nvim
+vim.keymap.set("n", "<leader>e", require("oil").open, { noremap = true, silent = true, desc = "Open Oil.nvim" })
+vim.keymap.set("n", "<leader>op", function() require("oil").open("..") end, { noremap = true, silent = true, desc = "Go to Parent Directory" })
+vim.keymap.set("n", "<leader>ob", function() require("oil").open(".") end, { noremap = true, silent = true, desc = "Go Back (Parent Directory)" })
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 

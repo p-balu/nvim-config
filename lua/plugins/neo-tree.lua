@@ -1,4 +1,4 @@
-return {
+--[[ return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
   dependencies = {
@@ -28,5 +28,11 @@ return {
       end,
     })
   end,
+} ]]
+return {
+  "stevearc/oil.nvim",
+  dependencies = { { "echasnovski/mini.icons","nvim-tree/nvim-web-devicons",opts = {} } },
+  config = function ()
+    require("oil").setup()
+  end
 }
-
