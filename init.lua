@@ -1,12 +1,9 @@
 -- Set Leader Key
 vim.g.mapleader = " "
 
--- Font
-vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
-
 -- Disable Netrw (Neovim’s built-in file explorer)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+--[[ vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1 ]]
 
 -- Lazy.nvim Setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -26,7 +23,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 require("core.options")
 require("core.keymaps")
-
 
 --  Fix Line Numbers (Always Show Absolute Numbers)
 vim.opt.number = true

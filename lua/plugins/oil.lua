@@ -29,10 +29,12 @@
     })
   end,
 } ]]
+
+--Oil
 return {
   "stevearc/oil.nvim",
-  dependencies = { { "echasnovski/mini.icons","nvim-tree/nvim-web-devicons",opts = {} } },
-  config = function ()
+  dependencies = { { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons", opts = {} } },
+  config = function()
     require("oil").setup()
   end
 }

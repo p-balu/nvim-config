@@ -5,13 +5,15 @@
 -- vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle Neo-Tree" })
 -- vim.keymap.set("n", "<leader>q", ":Neotree close<CR>", { noremap = true, silent = true, desc = "Close Neo-Tree" })
 -- vim.keymap.set("n", "<leader>n", ":Neotree reveal<CR>",
-  -- { noremap = true, silent = true, desc = "Reveal File in Neo-Tree" })
+-- { noremap = true, silent = true, desc = "Reveal File in Neo-Tree" })
 -- vim.keymap.set("n", "<leader>r", ":Neotree refresh<CR>", { noremap = true, silent = true, desc = "Refresh Neo-Tree" })
 
 --File Explorer oil.nvim
 vim.keymap.set("n", "<leader>e", require("oil").open, { noremap = true, silent = true, desc = "Open Oil.nvim" })
-vim.keymap.set("n", "<leader>op", function() require("oil").open("..") end, { noremap = true, silent = true, desc = "Go to Parent Directory" })
-vim.keymap.set("n", "<leader>ob", function() require("oil").open(".") end, { noremap = true, silent = true, desc = "Go Back (Parent Directory)" })
+vim.keymap.set("n", "<leader>op", function() require("oil").open("..") end,
+  { noremap = true, silent = true, desc = "Go to Parent Directory" })
+vim.keymap.set("n", "<leader>ob", function() require("oil").open(".") end,
+  { noremap = true, silent = true, desc = "Go Back (Previous Directory)" })
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 
@@ -36,33 +38,76 @@ vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current bu
 
 --  LSP Keybindings
 vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true })
--- Diagnostics Navigation
-vim.keymap.set("n", "<leader>ne", function() vim.diagnostic.goto_next({ severity = "Error" }) end,
-  { noremap = true, silent = true, desc = "Next Error" })
-vim.keymap.set("n", "<leader>ni", function() vim.diagnostic.goto_next({ severity = "Info" }) end,
-  { noremap = true, silent = true, desc = "Next Info" })
-vim.keymap.set("n", "<leader>nw", function() vim.diagnostic.goto_next({ severity = "Warn" }) end,
-  { noremap = true, silent = true, desc = "Next Warning" })
+vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gr', function()
+  require('telescope.builtin').lsp_references {
+    cwd = require('custom_lib').getGitRoot()
+  }
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ne', function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ni', function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>nw', function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pe', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pi', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pw', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>le', function()
+  require('telescope.builtin').diagnostics {
+    severity = vim.diagnostic.severity.ERROR,
+    no_sign = true,
+    cwd = require('custom_lib').getGitRoot()
+  }
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>li', function()
+  require('telescope.builtin').diagnostics {
+    severity = vim.diagnostic.severity.INFO,
+    no_sign = true,
+    cwd = require('custom_lib').getGitRoot()
+  }
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lw', function()
+  require('telescope.builtin').diagnostics {
+    severity = vim.diagnostic.severity.WARN,
+    no_sign = true,
+    cwd = require('custom_lib').getGitRoot()
+  }
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ld', function()
+  require('telescope.builtin').diagnostics {
+    cwd = require('custom_lib').getGitRoot()
+  }
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>hh', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><leader>', vim.diagnostic.open_float, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-h>', vim.lsp.buf.hover, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>pe", function() vim.diagnostic.goto_prev({ severity = "Error" }) end,
-  { noremap = true, silent = true, desc = "Previous Error" })
-vim.keymap.set("n", "<leader>pi", function() vim.diagnostic.goto_prev({ severity = "Info" }) end,
-  { noremap = true, silent = true, desc = "Previous Info" })
-vim.keymap.set("n", "<leader>pw", function() vim.diagnostic.goto_prev({ severity = "Warn" }) end,
-  { noremap = true, silent = true, desc = "Previous Warning" })
+-- Leap plugin mapping for multi-window motion
+vim.keymap.set({ 'n', 'o' }, 'gS', function()
+  require('leap.remote').action()
+end, { noremap = true, silent = true })
 
 -- Formatter
 vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { noremap = true, silent = true })
 
 -- Git Integration Keybinding
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git, {})
-
-vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
-vim.keymap.set("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", {})
-
 
 --Debugger
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
@@ -110,3 +155,8 @@ vim.keymap.set("n", "<leader>ce", "gcA",
 
 vim.keymap.set("v", "<C-/>", "gc", { noremap = true, silent = true, desc = "Toggles the region using linewise comment" })
 vim.keymap.set("v", "<C-/>", "gb", { noremap = true, silent = true, desc = "Toggles the region using blockwise comment" })
+
+
+vim.keymap.set('n', '<leader>hc', 'q:', { noremap = true, silent = true }) -- Open command history
+vim.keymap.set('n', '<leader>hs', 'q/', { noremap = true, silent = true }) -- Open search history
+
